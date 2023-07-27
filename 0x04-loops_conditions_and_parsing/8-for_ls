@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#Script to display files in current directory
+for file in *;
+do
+	if [ ! -d "$file" ] && [[ "$file" != .* ]]; 
+	then
+		name="${file#*-}"
+		echo "$name"
+	fi
+done
