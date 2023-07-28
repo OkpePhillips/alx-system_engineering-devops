@@ -3,6 +3,6 @@
 a=1
 until [ $a -eq 10 ]
 do
-	echo "Best School"
 	((a++))
+	echo "Best School"
 done
