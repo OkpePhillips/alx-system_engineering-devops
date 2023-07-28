@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Script to display text infinitely and handle signal
+
+function signal(){
+	echo "I am invincible!!!"
+}
+trap signal SIGTERM
+
+while true;
+do
+	echo "To infinity and beyond"
+	sleep 2
+done
