@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #Displaying text using until loop
 a=1
-until [ $a -eq 10 ]
+until [ $a -eq 11 ]
 do
-	((a++))
 	echo "Best School"
+	((a++))
 done
