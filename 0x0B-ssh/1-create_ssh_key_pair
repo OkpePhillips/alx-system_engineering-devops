@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Script to generate ssh key-pair
+
+passphrase="betty"
+key_filename="school"
+
+
+ssh-keygen -t rsa -b 4096 -f "$key_filename" -N "$passphrase"
