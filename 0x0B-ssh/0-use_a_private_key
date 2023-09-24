@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
+# Script to ssh into a server using private key
 
-server="3.85.136.23"
-key="~/.ssh/school"
-username="ubuntu"
-
-ssh -i "$key" "$username"@"$server"
+ssh -i "~/.ssh/school" "ubuntu@$54.196.42.35"
