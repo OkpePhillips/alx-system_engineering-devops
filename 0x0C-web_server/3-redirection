@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Script to create redirection configuration
+
+# Create a temporary configuration file for redirection
+sudo cat <<EOL > /etc/nginx/sites-available/temporary_redirect
+server {
+    listen 80;
+    server_name http://philstech.tech;
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+}
+EOL
+
+# Enable the temporary redirection configuration
+if [ ! -e /etc/nginx/sites-enabled/temporary_redirect ]; then
+    ln -s /etc/nginx/sites-available/temporary_redirect /etc/nginx/sites-enabled/
+fi
+
+# Test Nginx configuration and reload
+sudo nginx -t && /usr/sbin/nginx -s reload
+
+# Clean up temporary files
+sudo rm /etc/nginx/sites-available/temporary_redirect

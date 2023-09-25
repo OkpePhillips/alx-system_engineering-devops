@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Script to install nginx on the remote server
+# Installing nginx
+sudo apt-update
+sudo apt-get -y install nginx
+
+# Setting the defualt index.html
+sudo echo 'Hello World!' > /var/www/html/index.html
+
+# Check if nginx is running, otherwise start it
+if ! ps aux | grep -q '[n]ginx'; then
+    sudo /usr/sbin/nginx
+fi
+
+# Checks if nginx is listening on port 80. Otherwise, sets it and reload nginx
+
+if ! netstat -tuln | grep -q ':80'; then
+    sudo sed -i 's/^\(listen[[:space:]]*80[[:space:]]*;\)/# \1\nlisten 80;/' /etc/nginx/sites-available/default
+    /usr/sbin/nginx -s reload
+fi
