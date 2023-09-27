@@ -1,20 +1,30 @@
 #!/usr/bin/env bash
 # Script to install nginx on the remote server
 # Installing nginx
-sudo apt-update
+sudo apt update
 sudo apt-get -y install nginx
 
-# Setting the defualt index.html
-sudo echo 'Hello World!' > /var/www/html/index.html
+# Configure Nginx to display "Hello World!" as the default content
+cat <<EOL | sudo tee /etc/nginx/sites-available/default > /dev/null
+server {
+    listen 80;
+    server _;
 
-# Check if nginx is running, otherwise start it
-if ! ps aux | grep -q '[n]ginx'; then
-    sudo /usr/sbin/nginx
-fi
+    root /var/www/html;
+    index index.html;
 
-# Checks if nginx is listening on port 80. Otherwise, sets it and reload nginx
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+EOL
 
-if ! netstat -tuln | grep -q ':80'; then
-    sudo sed -i 's/^\(listen[[:space:]]*80[[:space:]]*;\)/# \1\nlisten 80;/' /etc/nginx/sites-available/default
-    /usr/sbin/nginx -s reload
-fi
+# Create symlink
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+
+# Create a new index.html file with "Hello World!" content
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+
+# Restart Nginx to apply the changes
+sudo service nginx restart
