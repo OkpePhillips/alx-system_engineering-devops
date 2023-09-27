@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Script to create redirection configuration
 
-sudo cat <<EOL > /etc/nginx/sites-available/temporary_redirect
+cat <<EOL > /etc/nginx/sites-available/temporary_redirect
 server {
     listen 80 default_server;
 
