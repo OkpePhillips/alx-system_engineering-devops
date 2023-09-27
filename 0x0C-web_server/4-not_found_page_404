@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
+# Script to reconfigure not found page
 
 sudo echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html > /dev/null
 
 # Create an Nginx configuration file for the custom error page
-sudo cat <<EOL > /etc/nginx/sites-available/custom_404
+cat <<EOL > /etc/nginx/sites-available/custom_404
 server {
     listen 80 default_server;
     server_name _;
