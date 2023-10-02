@@ -1,30 +1,9 @@
 #!/usr/bin/env bash
 # Script to install nginx on the remote server
 # Installing nginx
-sudo apt update
-sudo apt-get -y install nginx
+apt-get -y update
+apt-get -y install nginx
 
-# Configure Nginx to display "Hello World!" as the default content
-cat <<EOL | sudo tee /etc/nginx/sites-available/default > /dev/null
-server {
-    listen 80;
-    server _;
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
 
-    root /var/www/html;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-EOL
-
-# Create symlink
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-
-
-# Create a new index.html file with "Hello World!" content
-echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
-
-# Restart Nginx to apply the changes
-sudo service nginx restart
+service nginx restart
