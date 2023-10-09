@@ -10,8 +10,9 @@ subdomain="$2"
 # Function to audit a subdomain
 audit_subdomain() {
   local sub="$1"
-  local record_type=$(dig +short "$sub.$domain" | awk '{print $1}')
-  local destination=$(dig +short "$sub.$domain" | tail -1)
+  local dig_output=$(dig "$sub.$domain" | grep -A1 'ANSWER SECTION:' | paste - -)
+  local record_type=$(echo "$dig_output" | awk '{print $7}')
+  local destination=$(echo "$dig_output" | awk '{print $8}')
 
   echo "The subdomain $sub is a $record_type record and points to $destination"
 }
