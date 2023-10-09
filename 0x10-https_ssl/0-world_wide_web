@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Script to display information about a domain
+
+subdomains=("www" "lb-01" "web-01" "web-02")
+
+# Set the domain and subdomain based on user input
+domain="$1"
+subdomain="$2"
+
+# Function to audit a subdomain
+audit_subdomain() {
+  local sub="$1"
+  local record_type=$(dig +short "$sub.$domain" | awk '{print $1}')
+  local destination=$(dig +short "$sub.$domain" | tail -1)
+
+  echo "The subdomain $sub is a $record_type record and points to $destination"
+}
+
+# Check if a specific subdomain is provided
+if [ -n "$subdomain" ]; then
+  audit_subdomain "$subdomain"
+else
+  # Loop through and audit each subdomain
+  for sub in "${subdomains[@]}"; do
+    audit_subdomain "$sub"
+  done
+fi
