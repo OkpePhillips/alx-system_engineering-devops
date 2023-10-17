@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Script to create a sql dump and compress it
+
+# Get the current date in the desired format (day-month-year)
+date_format=$(date +'%d-%m-%Y')
+
+# Name of the backup file
+backup_file="$date_format.tar.gz"
+
+# Create the MYSQL dump
+mysqldump -u root -p "$1" --all-databases > backup.sql
+
+Compress backup into a tar.gz archive
+tar -czf "$backup_file" "backup.sql"
+
+# Remove the original dump file
+rm "backup.sql"
