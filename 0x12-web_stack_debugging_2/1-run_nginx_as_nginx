@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Debugging webstack, running nginx as nginx user
+
+# Stop the Nginx service if it's running
+systemctl stop nginx
+
+# Replace "user" directive in the Nginx configuration to run as "nginx" user
+sed -i 's/user .*;/user nginx;/' /etc/nginx/nginx.conf
+
+# Update the Nginx configuration to listen on port 8080
+sed -i 's/listen 80;/listen 8080;/' /etc/nginx/sites-available/default
+
+# Start the Nginx service
+systemctl start nginx
