@@ -12,6 +12,3 @@ mysqldump -u root -p "$1" --all-databases > backup.sql
 
 Compress backup into a tar.gz archive
 tar -czf "$backup_file" "backup.sql"
-
-# Remove the original dump file
-rm "backup.sql"
