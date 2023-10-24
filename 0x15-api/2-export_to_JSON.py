@@ -18,8 +18,8 @@ if __name__ == '__main__':
     task_data = []
     for task in todo:
         task_info = {'task': task['title'],
-            'completed': task['completed'],
-            'username': employee_name}
+                     'completed': task['completed'],
+                     'username': employee_name}
         task_data.append(task_info)
     task_file = {employee_id: task_data}
     with open('{}.json'.format(employee_id), 'w') as file:
