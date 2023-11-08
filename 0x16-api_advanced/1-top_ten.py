@@ -12,6 +12,7 @@ def top_ten(subreddit):
     headers = {'User-Agent': 'api_advanced'}
 
     response = requests.get(url, headers=headers)
+
     if response.status_code == 200:
         data = response.json()
         posts = data['data']['children']
